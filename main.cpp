@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cmath>
 
 using namespace std;
@@ -68,22 +68,62 @@ public:
 
 int main()
 {
-	int a, b, c, d;
+	int a, b, c, d, menu, f=1;
 	cout << "Input complex first" << '\n';
 	cin >> a >> b;
 	Complex first(a, b);
 	cout << "Input complex second" << '\n';
 	cin >> c >> d;
 	Complex second(c, d);
-	first.printComplex();
-	second.printComplex();
-	first.add(first, second);
-	first.sub(first, second);
-	first.mul(first, second);
-	first.div(first, second);
-	first.equ(first, second);
-	first.conj(first);
-	first.equreal(first, second);
+	while (f) {
+		cout << "1. Print numbers 2. Sum numbers 3. Subtract from first number second 4. Multiply numbers 5. Divide numbers" << '\n';
+		cout << "6. Compare numbers 7. Conjugate first number 8. Compare real part of numbers 9. Exit" << '\n';
+		cin >> menu;
+		switch (menu) {
+		case 1: {
+			first.printComplex();
+			second.printComplex();
+			break;
+		}
+		case 2: {
+			first.add(first, second);
+			break;
+		}
+		case 3: {
+			first.sub(first, second);
+			break;
+		}
+		case 4: {
+			first.mul(first, second);
+			break;
+		}
+		case 5: {
+			first.div(first, second);
+			break;
+		}
+		case 6: {
+			first.equ(first, second);
+			break;
+		}
+		case 7: {
+			first.conj(first);
+			break;
+		}
+		case 8: {
+			first.equreal(first, second);
+			break;
+		}
+		case 9: {
+			f=0;
+			break;
+		}
+		default: {
+			cout << "wrong command" << '\n';
+			break;
+		}
+		}
+		
+	}
 
 	return 0;
 }
