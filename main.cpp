@@ -1,3 +1,5 @@
+// Цыбенко Дмитрий вариант 2 действия с комплексными числами
+
 #include <iostream>
 #include <cmath>
 
@@ -6,7 +8,7 @@ using namespace std;
 class Complex {
 public:
 
-	double rad, ang, drad, dang;
+	double rad, ang, drad, dang, x, x1, x2, y, y1, y2;
 	
 	Complex (double r, double j) {
 		rad = abs(r);
@@ -16,27 +18,55 @@ public:
 	void printComplex() {
 		cout << "radius=" << rad << " angle=" << ang << '\n';
 	}
-
+	// вывод числа
 	void add(Complex a, Complex b) {
-		drad = a.rad + b.rad;
-		dang = a.ang + b.ang;
-		cout << "Sum: radius=" << drad << " angle="  << dang << '\n';
+		x1 = cos(a.ang) * a.rad;
+		y1 = sin(a.ang) * a.rad;
+		x2 = cos(b.ang) * b.rad;
+		y2 = sin(b.ang) * b.rad;
+		x = x1 + x2;
+		y = y1 + y2;
+		drad = sqrt(x*x + y*y);
+		dang = acos(x / drad);
 	}
+	Complex getadd() {
+		Complex result(drad, dang);
+		return result;
+	}
+	// сложение
 	void sub(Complex a, Complex b) {
-		drad = abs(a.rad - b.rad);
-		dang = a.ang - b.ang;
-		cout << "Subtract: radius=" << drad << " angle=" << dang << '\n';
+		x1 = cos(a.ang) * a.rad;
+		y1 = sin(a.ang) * a.rad;
+		x2 = cos(b.ang) * b.rad;
+		y2 = sin(b.ang) * b.rad;
+		x = x1 - x2;
+		y = y1 - y2;
+		drad = sqrt(x * x + y * y);
+		dang = acos(x / drad);
 	}
+	Complex getsub() {
+		Complex result(drad, dang);
+		return result;
+	}
+	// вычитание
 	void mul(Complex a, Complex b) {
 		drad = a.rad * b.rad;
-		dang = a.ang * b.ang;
-		cout << "Multiple: radius=" << drad << " angle=" << dang << '\n';
+		dang = a.ang + b.ang;
 	}
+	Complex getmul() {
+		Complex result(drad, dang);
+		return result;
+	}
+	// умножение
 	void div(Complex a, Complex b) {
 		drad = a.rad / b.rad;
-		dang = a.ang / b.ang;
-		cout << "Division: radius=" << drad << " angle=" << dang << '\n';
+		dang = abs(a.ang - b.ang);
 	}
+	Complex getdiv() {
+		Complex result(drad, dang);
+		return result;
+	}
+	// деление
 	bool equ(Complex a, Complex b) {
 		if ((a.rad == b.rad) && (a.ang == b.ang)) {
 			cout << "Numbers are equal" << '\n';
@@ -48,11 +78,13 @@ public:
 			return false;
 		}
 	}
+	// сравнение
 	void conj(Complex a) {
 		drad = a.rad;
 		dang = - a.ang;
 		cout << "Conjugate: radius=" << drad << " angle=" << dang << '\n';
 	}
+	// сопряженное
 	bool equreal(Complex a, Complex b) {
 		if (a.rad == b.rad) {
 			cout << "Real part of numbers are equal" << '\n';
@@ -64,6 +96,7 @@ public:
 			return false;
 		}
 	}
+	// сравнение по целой части
 };
 
 int main()
@@ -87,18 +120,23 @@ int main()
 		}
 		case 2: {
 			first.add(first, second);
+		    (first.getadd()).printComplex();
+			
 			break;
 		}
 		case 3: {
 			first.sub(first, second);
+			(first.getsub()).printComplex();
 			break;
 		}
 		case 4: {
 			first.mul(first, second);
+			(first.getmul()).printComplex();
 			break;
 		}
 		case 5: {
 			first.div(first, second);
+			(first.getdiv()).printComplex();
 			break;
 		}
 		case 6: {
